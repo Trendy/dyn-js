@@ -157,7 +157,7 @@ crudRecipients = (type) ->
     _status:          {path:"/recipients/status", method: "GET"}
 
 crudSendMail = (type) ->
-  crudMessaging "/send/", 
+  crudMessaging "/send/",
     _create:          {path:"/send"}
 
 crudSuppressions = (type) ->
@@ -415,7 +415,7 @@ Dyn = (opts) ->
   messaging.clicks.unique_count       = (starttime, endtime)             -> callWithError messaging.clicks._unique_count._call(messaging, {}, _.defaults({starttime, endtime:endtime}, {apikey:messaging.defaults.apikey})), "clicks.unique_count", msgIsOk, extractMsgData, throwMsgMessages
 
   messaging.send_mail                 = crudSendMail()
-  messaging.send_mail.create          = (from, to, subject, bodytext, bodyhmtl, cc, replyto, xheaders) -> callWithError messaging.send_mail._create._call(messaging, {}, _.defaults({from:from, to:to, subject:subject, bodytext:bodytext, bodyhtml:bodyhmtl, cc:cc, replyto:replyto, xheaders:xheaders}, {apikey:messaging.defaults.apikey})), "send_mail.create", msgIsOk, extractMsgData, throwMsgMessages
+  messaging.send_mail.create          = (mailObj) -> callWithError messaging.send_mail._create._call(messaging, {}, _.defaults(mailObj, {apikey:messaging.defaults.apikey})), "send_mail.create", msgIsOk, extractMsgData, throwMsgMessages
 
   dyn
 
